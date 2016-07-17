@@ -1,0 +1,75 @@
+@main("Test SockJS") {
+
+    <script>
+            var sock;
+            function connect()
+            {
+                sock = new SockJS('/ws');
+                sock.onopen = function() {
+                    console.log('open');
+                    toggleConnected(true);
+                };
+                sock.onmessage = function(e) {
+                    console.log('message', e.data);
+                    showResponse(JSON.parse(e.data));
+                };
+                sock.onclose = function() {
+                    console.log('close');
+                    toggleConnected(false);
+                };
+
+            }
+            function disconnect()
+            {
+                if (sock != null)
+                {
+                    sock.close();
+                }
+                toggleConnected(false);
+            }
+            function toggleConnected(connected)
+            {
+                if (connected == true)
+                {
+                    document.getElementById('connect').disabled = 'disabled';
+                    document.getElementById('disconnect').disabled = '';
+                    document.getElementById('messageDiv').style = '';
+                } else {
+                    document.getElementById('connect').disabled = '';
+                    document.getElementById('disconnect').disabled = 'disabled';
+                    document.getElementById('messageDiv').style = 'display:none';
+                    document.getElementById('messagesText').innerHTML = '';
+                }
+            }
+            function send()
+            {
+                if (sock != null)
+                {
+                    var message = {value: document.getElementById('messageText').value};
+                    var total = JSON.stringify({path: 'chat/room/test', body: message});
+                    sock.send(total);
+                    console.log(total);
+                }
+            }
+            function showResponse(response)
+            {
+                var messageText = document.getElementById('messagesText');
+                var p = document.createElement('p');
+                p.style.wordWrap = 'break-word';
+                p.appendChild(document.createTextNode(JSON.stringify(response.body)));
+                messageText.appendChild(p);
+            }
+    </script>
+
+    <div>
+        <div>
+            <button id="connect" onclick="connect();">Connect</button>
+            <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+        </div>
+    </div>
+    <div id="messageDiv" style="display : none">
+        <label for="messageText">Send message</label><input type="text" id="messageText"/>
+        <button id="send" onclick="send();">Send</button>
+        <p id="messagesText"></p>
+    </div>
+}
