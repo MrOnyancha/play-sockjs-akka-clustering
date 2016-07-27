@@ -15,14 +15,14 @@ object WebSocket{
 
   case class UserSetup(userId:String)
 }
-class WebSocket(userId:String, out:ActorRef, userRef:ActorRef) extends Actor {
+class WebSocket(userId:String, out:ActorRef, cluster:ActorRef) extends Actor {
 
   Logger.debug(s"$userId socket initiated" )
 
 
   override def preStart() = {
     Logger.debug(s"Sending self reference to owning user socket actor")
-     userRef ! WebSocketInit(self)
+     cluster ! WebSocketInit(userId,self)
   }
 
   override def receive: Receive = {

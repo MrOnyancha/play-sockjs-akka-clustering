@@ -15,7 +15,7 @@ libraryDependencies ++=
     "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
     "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
     "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion,
-    "org.iq80.leveldb" % "leveldb" % "0.7"
+    "com.hootsuite" %% "akka-persistence-redis" % "0.4.0"
   )
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  
@@ -23,5 +23,6 @@ unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/
 resolvers ++=
   Seq(
     "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
-    Resolver.sonatypeRepo("releases")
+    Resolver.sonatypeRepo("releases"),
+    Resolver.jcenterRepo
   )

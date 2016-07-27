@@ -19,7 +19,7 @@ object UserSocket extends ShardedFunctions{
   def props = Props[UserSocket]
 
   case class ConnectionRequest(userId:String)
-  case class WebSocketInit(ref:ActorRef)
+  case class WebSocketInit(userId:String,ref:ActorRef)
 
 
 
@@ -29,7 +29,6 @@ object UserSocket extends ShardedFunctions{
 class UserSocket extends Actor with ActorLogging{
 
   var socket:Option[ActorRef]  = None
-  implicit val mat = ActorMaterializer()
 
 
 
@@ -37,7 +36,6 @@ class UserSocket extends Actor with ActorLogging{
 
     case ConnectionRequest(userId) =>
       Logger.debug("Connection request received creating new websocket")
-      sender() ! Right(ActorFlow.actorRef(out => WebSocket.props(userId,out,self)))
 
     case ws:WebSocketInit =>
       Logger.debug(s"Websocket now linked with user socket $ws")

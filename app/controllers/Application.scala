@@ -1,6 +1,6 @@
 package controllers
 
-import actors.UserSocket
+import actors.{UserSocket, WebSocket}
 import actors.UserSocket.ConnectionRequest
 import akka.actor.{ActorNotFound, ActorRef, ActorSystem, Props}
 import akka.cluster.sharding.{ClusterSharding, ClusterShardingSettings}
@@ -9,10 +9,12 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import play.sockjs.api.{SockJS, SockJSRouter}
 import akka.pattern.{AskTimeoutException, ask}
+import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Flow
 import akka.util.Timeout
 import models.{PlainMessage, ServiceResponse}
 import play.api.Logger
+import play.api.libs.streams.ActorFlow
 import play.sockjs.api.SockJS.MessageFlowTransformer
 
 import scala.concurrent.duration._
@@ -25,6 +27,8 @@ class Application @Inject() (implicit system:ActorSystem) extends Controller wit
   type SockJsFlow = Flow[JsValue,JsValue,_]
 
   implicit val timeout:Timeout = 5 seconds
+
+  implicit val mat = ActorMaterializer()
 
   implicit val transformer = MessageFlowTransformer.jsonMessageFlowTransformer[PlainMessage,PlainMessage]
 
@@ -57,8 +61,8 @@ class Application @Inject() (implicit system:ActorSystem) extends Controller wit
     SockJS.acceptOrResult[PlainMessage,PlainMessage] {
       request =>
         val user = "user1"
-        (cluster ? ConnectionRequest("user1"))
-          .mapTo[Either[Result, Flow[PlainMessage, PlainMessage, _]]]
+        cluster ! ConnectionRequest("user1")
+        Future.successful(Right(ActorFlow.actorRef(out => WebSocket.props(user,out,cluster))))
     }
 
 }
