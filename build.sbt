@@ -15,8 +15,13 @@ libraryDependencies ++=
     "com.typesafe.akka" %% "akka-cluster" % akkaVersion,
     "com.typesafe.akka" %% "akka-cluster-tools" % akkaVersion,
     "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion,
-    "com.hootsuite" %% "akka-persistence-redis" % "0.4.0"
+    "com.hootsuite" %% "akka-persistence-redis" % "0.4.0",
+    "org.iq80.leveldb" % "leveldb" % "0.7",
+    "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
   )
+
+libraryDependencies += "com.typesafe.akka" %% "akka-stream-kafka" % "0.11-RC2"
+
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  
 
