@@ -4,11 +4,13 @@ import actors.UserSocket.{ConnectionRequest, WebSocketInit}
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
 import akka.stream.ActorMaterializer
 import models.{PlainMessage, ServiceResponse}
-import play.api.Logger
+import play.api.{Configuration, Logger}
 import play.api.libs.streams.ActorFlow
 import akka.pattern.{ask, pipe}
+import javax.inject.Inject
 import play.api.libs.json.Json
 
+import scala.concurrent.ExecutionContext
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Random
 
@@ -24,12 +26,13 @@ object UserSocket extends ShardedFunctions{
   case class WebSocketInit(userId:String, ref:ActorRef)
 
 }
-class UserSocket extends Actor with ActorLogging{
+class UserSocket@Inject()(implicit  ec: ExecutionContext, configuration: Configuration) extends Actor with ActorLogging{
 
   var socket:Option[ActorRef]  = None
   val random = new Random()
   val numberOfDevices = 50
 
+  val reciever  =  configuration.get[String](UserSocket.playHostKey).toString
 
   override def receive: Receive = {
 
@@ -45,7 +48,7 @@ class UserSocket extends Actor with ActorLogging{
       ws.ref !  msg
 
     case sr:ServiceResponse =>
-      Logger.debug("Received service response")
+      Logger.debug(s"Received service response $reciever")
       Logger info s"Recording ${sr.key} for device ${sr.path}, = ${sr.body}"
       Logger info s"MY PATH is ${context.sender.path}"
 //      Logger.debug(socket.toString)
