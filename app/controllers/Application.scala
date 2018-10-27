@@ -7,6 +7,7 @@ import akka.cluster.sharding.{ClusterSharding, ClusterShardingSettings}
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
 import javax.inject.Inject
+import play.api.Configuration
 //import com.google.inject.Inject
 import models.ServiceResponse
 import play.api.libs.json.Json
@@ -17,7 +18,7 @@ import scala.concurrent.ExecutionContext
 
 import scala.concurrent.duration._
 
-class Application @Inject()(implicit system: ActorSystem, cc: ControllerComponents) extends AbstractController(cc) {
+class Application @Inject()(implicit system: ActorSystem, ec: ExecutionContext, configuration: Configuration, cc: ControllerComponents) extends AbstractController(cc) {
 
   implicit val timeout: Timeout = 5 seconds
 
@@ -33,6 +34,7 @@ class Application @Inject()(implicit system: ActorSystem, cc: ControllerComponen
     extractEntityId = UserSocket.extractEntityId
   )
 
+  val host  =  configuration.get[String](UserSocket.playHostKey).toString
   //  val cluster = ClusterSharding(system).shardRegion(UserSocket.shardName)
 
 
@@ -44,8 +46,8 @@ class Application @Inject()(implicit system: ActorSystem, cc: ControllerComponen
   }
 
 
-  implicit val ec: ExecutionContext = system.dispatcher
-  system.scheduler.schedule(10.seconds, 1.second, certainActor, WebSocketInit("OFFLINE", certainActor))
+//  implicit val ec: ExecutionContext = system.dispatcher
+  system.scheduler.schedule(10.seconds, 1.second, certainActor, WebSocketInit(host, certainActor))
 
   //  def getMsg(): ServiceResponse =
 

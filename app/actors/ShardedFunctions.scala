@@ -13,6 +13,8 @@ trait ShardedFunctions {
 
   def shardName = "userSocket"
 
+  def playHostKey = "myhost"
+
   val extractEntityId: ExtractEntityId = {
     case sr@ServiceResponse(path,body,key) => (key,sr)
     case req@ConnectionRequest(userId) => (userId,req)
