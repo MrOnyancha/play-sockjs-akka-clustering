@@ -6,7 +6,7 @@
 GET     /                           controllers.Application.index
 GET     /post                       controllers.Application.postTosocket(postValue)
 
-->      /ws                         controllers.Application
+#->      /ws                         controllers.Application
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
