@@ -11,7 +11,7 @@ val akkaVersion = "2.5.17"
 libraryDependencies ++=
   Seq(
     jdbc, cache, ws, specs2 % Test,
-      guice,
+    guice,
     "com.github.fdimuccio" %% "play2-sockjs" % "0.6.0",
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-remote" % akkaVersion,
@@ -21,6 +21,7 @@ libraryDependencies ++=
     "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion,
     "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion,
     "com.hootsuite" %% "akka-persistence-redis" % "0.8.0" % "runtime",
+    "pl.immutables" %% "akka-reasonable-downing" % "1.1.0",
     "org.iq80.leveldb" % "leveldb" % "0.7",
     "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
   )
@@ -32,6 +33,7 @@ unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/te
 resolvers ++=
   Seq(
     "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
+    "akka-split" at "https://mvnrepository.com/artifact/com.paytmlabs.akka/akka-split-brain-resolver",
     Resolver.sonatypeRepo("releases"),
     Resolver.jcenterRepo
   )
