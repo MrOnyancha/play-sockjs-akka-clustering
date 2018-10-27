@@ -15,4 +15,8 @@ Open the other window where you connected to the server and you will the value o
 You can change this value in the URL.
 
 
-export HOST=$( ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' )
+
+export PORT=2551;export HOST=$( ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' );
+export SEED=$HOST
+
+
