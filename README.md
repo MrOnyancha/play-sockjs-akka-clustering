@@ -13,3 +13,6 @@ Open another window and then navigate to http://localhost:9000/post?=postValue=1
 
 Open the other window where you connected to the server and you will the value of "postValue" printed. 
 You can change this value in the URL.
+
+
+export HOST=$( ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' )
