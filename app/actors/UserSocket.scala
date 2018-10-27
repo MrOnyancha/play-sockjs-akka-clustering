@@ -29,7 +29,7 @@ class UserSocket(e: ExecutionContext, c: Configuration) extends Actor with Actor
 
   var socket: Option[ActorRef] = None
   val random = new Random()
-  val numberOfDevices = 50
+  val numberOfDevices = 5000
 
   val reciever = configuration.get[String](UserSocket.playHostKey).toString
 
