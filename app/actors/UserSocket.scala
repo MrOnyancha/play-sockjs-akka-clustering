@@ -20,7 +20,7 @@ import scala.util.Random
   */
 object UserSocket extends ShardedFunctions{
 
-  def props (implicit  ec: ExecutionContext, configuration: Configuration) = Props(new UserSocket())
+  def props (implicit  ec: ExecutionContext, configuration: Configuration) = Props[UserSocket]
 
   case class ConnectionRequest(userId:String)
   case class WebSocketInit(userId:String, ref:ActorRef)
