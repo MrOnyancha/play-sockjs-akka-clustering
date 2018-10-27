@@ -28,7 +28,7 @@ libraryDependencies ++=
 libraryDependencies += "com.typesafe.akka" %% "akka-stream-kafka" % "0.22"
 
 
-unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")
+//unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")
 
 resolvers ++=
   Seq(
