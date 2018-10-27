@@ -11,8 +11,7 @@ val akkaVersion = "2.5.17"
 libraryDependencies ++=
   Seq(
     jdbc, cache, ws, specs2 % Test,
-    guice,
-//    "com.lightbend.akka" %% "akka-split-brain-resolver" % "1.1.0",
+      guice,
     "com.github.fdimuccio" %% "play2-sockjs" % "0.6.0",
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-remote" % akkaVersion,
@@ -22,8 +21,8 @@ libraryDependencies ++=
     "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion,
     "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion,
     "com.hootsuite" %% "akka-persistence-redis" % "0.8.0" % "runtime",
-      "pl.immutables" %% "akka-reasonable-downing" % "1.1.0",
     "org.iq80.leveldb" % "leveldb" % "0.7",
+      "pl.immutables" %% "akka-reasonable-downing" % "1.1.0",
     "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
   )
 libraryDependencies += "com.typesafe.akka" %% "akka-stream-kafka" % "0.22"
