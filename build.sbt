@@ -22,7 +22,7 @@ libraryDependencies ++=
     "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion,
     "com.hootsuite" %% "akka-persistence-redis" % "0.8.0" % "runtime",
     "org.iq80.leveldb" % "leveldb" % "0.7",
-      "pl.immutables" %% "akka-reasonable-downing" % "1.1.0",
+//      "pl.immutables" %% "akka-reasonable-downing" % "1.1.0",
     "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
   )
 libraryDependencies += "com.typesafe.akka" %% "akka-stream-kafka" % "0.22"
