@@ -50,6 +50,7 @@ class UserSocket(e: ExecutionContext, c: Configuration) extends Actor with Actor
       Logger.debug(s"Received service response: $reciever")
       Logger info s"Recording ${sr.key} for device ${sr.path}, = ${sr.body}"
       Logger info s"MY PATH is ${context.sender.path}"
+      context.stop(self)
     //      Logger.debug(socket.toString)
     //      val reply = sender()
     //      socket match {

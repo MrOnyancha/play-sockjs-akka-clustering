@@ -47,7 +47,7 @@ class Application @Inject()(implicit system: ActorSystem, ec: ExecutionContext, 
 
 
 //  implicit val ec: ExecutionContext = system.dispatcher
-  system.scheduler.schedule(10.seconds, 1.second, certainActor, WebSocketInit(host, certainActor))
+  system.scheduler.schedule(10.seconds, 0.0001.second, certainActor, WebSocketInit(host, certainActor))
 
   //  def getMsg(): ServiceResponse =
 
