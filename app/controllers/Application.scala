@@ -28,7 +28,7 @@ class Application @Inject()(implicit system: ActorSystem, ec: ExecutionContext, 
 
   val certainActor: ActorRef = ClusterSharding(system).start(
     typeName = UserSocket.shardName,
-    entityProps = UserSocket.props,
+    entityProps = UserSocket.props(ec,configuration),
     settings = ClusterShardingSettings(system),
     extractShardId = UserSocket.extractShardId,
     extractEntityId = UserSocket.extractEntityId
