@@ -22,6 +22,7 @@ libraryDependencies ++=
     "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion,
     "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion,
     "com.hootsuite" %% "akka-persistence-redis" % "0.8.0" % "runtime",
+      "pl.immutables" %% "akka-reasonable-downing" % "1.1.0",
     "org.iq80.leveldb" % "leveldb" % "0.7",
     "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
   )
