@@ -16,7 +16,7 @@ You can change this value in the URL.
 
 
 
-export PORT=2551;export HOST=$( ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' );
-export SEED=$HOST
+export PORT=2551;export HOST=$( ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' );export SEED="10.128.0.3"
+export PORT=2551;export HOST=$( ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' );export SEED="10.166.0.2"
 
 
