@@ -20,13 +20,13 @@ import scala.util.Random
   */
 object UserSocket extends ShardedFunctions{
 
-  def props = Props[UserSocket]
+  def props (implicit  ec: ExecutionContext, configuration: Configuration) = Props(new UserSocket())
 
   case class ConnectionRequest(userId:String)
   case class WebSocketInit(userId:String, ref:ActorRef)
 
 }
-class UserSocket@Inject()(implicit  ec: ExecutionContext, configuration: Configuration) extends Actor with ActorLogging{
+class UserSocket(implicit  ec: ExecutionContext, configuration: Configuration) extends Actor with ActorLogging{
 
   var socket:Option[ActorRef]  = None
   val random = new Random()
